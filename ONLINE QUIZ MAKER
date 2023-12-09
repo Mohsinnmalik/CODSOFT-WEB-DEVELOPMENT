@@ -1,0 +1,444 @@
+#CODES FOR ONLINE QUIZ MAKER  WEBSITE WHICH CONTAINS (HTML,CSS AND JAVASCRIP) AS GIVEN BELOW 
+#CODES FOR HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your IQ Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#quiz-creation">Create Quiz</a>
+            <a href="#quiz-listing">Quiz List</a>
+            <a href="#quiz-taking">Take Quiz</a>
+        </nav>
+        <h1>Create Your IQ Quiz</h1>
+    </header>
+
+    <main>
+        <section id="home">
+            <h2>Home Page</h2>
+            <button onclick="createQuiz()">Create a Quiz</button>
+            <button onclick="loadQuizList()">Take a Quiz</button>
+        </section>
+
+        <section id="quiz-creation" class="hidden">
+            <h2>Create Quiz</h2>
+            <form id="quizForm">
+                <label for="question">Question:</label>
+                <textarea id="question" rows="3" required></textarea>
+
+                <label for="option1">Option 1:</label>
+                <input type="text" id="option1" required>
+
+                <label for="option2">Option 2:</label>
+                <input type="text" id="option2" required>
+
+                <label for="option3">Option 3:</label>
+                <input type="text" id="option3" required>
+
+                <label for="option4">Option 4:</label>
+                <input type="text" id="option4" required>
+
+                <label for="correct_answer">Correct Answer:</label>
+                <select id="correct_answer" required>
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <option value="option3">Option 3</option>
+                    <option value="option4">Option 4</option>
+                </select>
+
+                <button type="button" onclick="addQuestion()">Add Question</button>
+            </form>
+        </section>
+
+        <section id="quiz-listing" class="hidden">
+            <h2>Quiz List</h2>
+            <ul id="quizList"></ul>
+        </section>
+
+        <section id="quiz-taking" class="hidden">
+            <h2>Take Quiz</h2>
+            <div id="questionContainer"></div>
+            <p class="quiz-feedback hidden" id="quizFeedback">Correct! Well done! 👍</p>
+        </section>
+
+        <p class="watermark">Design and Coded by Mohsin Malik</p>
+        <button id="playButton">Play Music</button>
+        <button id="pauseButton">Pause Music</button>
+        <audio id="backgroundMusic" autoplay loop>
+            <source src="http://dl.dropbox.com/s/e889ya1zrvu1wr3/dev%20n%20chanda%20theme%202-dev%20d%20%28%20256kbps%20cbr%20%29.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
+*********************************************************************************************************************************************************
+#CODES FOR CSS
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #282c35; /* Slightly Darker Gray */
+    color: #ffffff; /* White */
+}
+
+nav {
+    background-color: #3f3f3f; /* Darker Gray */
+    padding: 0.5em;
+}
+
+nav a {
+    color: #ffffff; /* White */
+    text-decoration: none;
+    margin-right: 1em;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #4a148c; /* Dark Purple */
+}
+
+button {
+    background-color: #6a1b9a; /* Purple */
+    color: #ffffff; /* White */
+    padding: 0.5em 1em;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: #4a148c; /* Darker Purple */
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+#quizList a {
+    color: #ffffff; /* White */
+    text-decoration: none;
+}
+
+.quiz-feedback {
+    color: #4a148c; /* Dark Purple */
+    font-weight: bold;
+    margin-top: 0.5em;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+#questionContainer {
+    background-color: #4a6572; /* Teal */
+    color: #ffffff; /* White */
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.option {
+    margin-bottom: 0.5em;
+    background-color: #6a1b9a; /* Purple */
+    padding: 0.5em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.option:hover {
+    background-color: #4a148c; /* Darker Purple */
+}
+
+.correct-option {
+    color: #27AE60; /* Green */
+    font-weight: bold;
+}
+
+.watermark-taking {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 14px;
+    color: #4a148c; /* Dark Purple */
+    font-weight: bold;
+}
+
+.watermark-creation {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    font-size: 14px;
+    color: #a6ff17; /* Dark Purple */
+    font-weight: bold;
+    opacity: 0.6;
+}
+/* Existing CSS styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #282c35; /* Slightly Darker Gray */
+    color: #ffffff; /* White */
+}
+
+nav {
+    background-color: #3f3f3f; /* Darker Gray */
+    padding: 0.5em;
+}
+
+nav a {
+    color: #ffffff; /* White */
+    text-decoration: none;
+    margin-right: 1em;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #4a148c; /* Dark Purple */
+}
+
+button {
+    background-color: #6a1b9a; /* Purple */
+    color: #ffffff; /* White */
+    padding: 0.5em 1em;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: #4a148c; /* Darker Purple */
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+#quizList a {
+    color: #ffffff; /* White */
+    text-decoration: none;
+}
+
+.quiz-feedback {
+    color: #4a148c; /* Dark Purple */
+    font-weight: bold;
+    margin-top: 0.5em;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+#questionContainer {
+    background-color: #4a6572; /* Teal */
+    color: #ffffff; /* White */
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.option {
+    margin-bottom: 0.5em;
+    background-color: #6a1b9a; /* Purple */
+    padding: 0.5em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.option:hover {
+    background-color: #4a148c; /* Darker Purple */
+}
+
+.correct-option {
+    color: #27AE60; /* Green */
+    font-weight: bold;
+}
+
+.watermark {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 12px;
+    color: #4a148c; /* Dark Purple */
+    opacity: 0.6;
+}
+
+/* Styles for music controls */
+#playButton,
+#pauseButton {
+    background-color: #6a1b9a; /* Purple */
+    color: #ffffff; /* White */
+    padding: 0.5em 1em;
+    border: none;
+    cursor: pointer;
+    margin-right: 1em;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#playButton:hover,
+#pauseButton:hover {
+    background-color: #4a148c; /* Darker Purple */
+}
+***********************************************************************************************************************************************
+#CODES FOR JAVASCRIPT 
+let quizData = [];
+let currentQuizIndex = 0;
+
+function createQuiz() {
+    document.getElementById('quiz-creation').classList.remove('hidden');
+    document.getElementById('quiz-listing').classList.add('hidden');
+    document.getElementById('quiz-taking').classList.add('hidden');
+    document.getElementById('quizFeedback').classList.add('hidden');
+}
+
+function addQuestion() {
+    const question = document.getElementById('question').value;
+    const option1 = document.getElementById('option1').value;
+    const option2 = document.getElementById('option2').value;
+    const option3 = document.getElementById('option3').value;
+    const option4 = document.getElementById('option4').value;
+    const correctAnswer = document.getElementById('correct_answer').value;
+
+    quizData.push({
+        question,
+        options: [option1, option2, option3, option4],
+        correctAnswer
+    });
+
+    document.getElementById('quizForm').reset();
+}
+
+function loadQuizList() {
+    document.getElementById('quiz-creation').classList.add('hidden');
+    document.getElementById('quiz-listing').classList.remove('hidden');
+    document.getElementById('quiz-taking').classList.add('hidden');
+    document.getElementById('quizFeedback').classList.add('hidden');
+
+    const quizList = document.getElementById('quizList');
+    quizList.innerHTML = '';
+
+    // Sample quiz data related to Cricket World Cup
+    quizData.push({
+        question: 'In which year did India win their first Cricket World Cup?',
+        options: ['1983', '1975', '1992', '2007'],
+        correctAnswer: '1983'
+    });
+
+    quizData.push({
+        question: 'Who holds the record for the highest individual score in a Cricket World Cup match?',
+        options: ['Sachin Tendulkar', 'Rohit Sharma', 'Martin Guptill', 'Chris Gayle'],
+        correctAnswer: 'Martin Guptill'
+    });
+
+    // Add more quiz data here...
+
+    quizData.forEach((quiz, index) => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `<strong>${index + 1}.</strong> ${quiz.question} - <a href="#" onclick="startQuiz(${index})">Take Quiz</a> - <a href="#" onclick="deleteQuestion(${index})">Delete</a>`;
+        quizList.appendChild(listItem);
+    });
+}
+
+function startQuiz(index) {
+    currentQuizIndex = index;
+    const questionContainer = document.getElementById('questionContainer');
+    questionContainer.innerHTML = '';
+
+    const questionDiv = document.createElement('div');
+    questionDiv.classList.add('question-container');
+    questionDiv.innerHTML = `<p>${quizData[index].question}</p>`;
+    questionContainer.appendChild(questionDiv);
+
+    const optionsContainer = document.createElement('div');
+    optionsContainer.classList.add('options-container');
+    quizData[index].options.forEach((option, optionIndex) => {
+        const optionDiv = document.createElement('div');
+        optionDiv.classList.add('option');
+        optionDiv.innerHTML = option;
+        optionDiv.addEventListener('click', () => handleOptionClick(optionIndex));
+        optionsContainer.appendChild(optionDiv);
+    });
+    questionContainer.appendChild(optionsContainer);
+
+    document.getElementById('quiz-creation').classList.add('hidden');
+    document.getElementById('quiz-listing').classList.add('hidden');
+    document.getElementById('quiz-taking').classList.remove('hidden');
+}
+
+function handleOptionClick(selectedOptionIndex) {
+    const correctAnswerIndex = quizData[currentQuizIndex].options.indexOf(quizData[currentQuizIndex].correctAnswer);
+
+    if (selectedOptionIndex === correctAnswerIndex) {
+        document.getElementById('quizFeedback').innerHTML = 'Correct! Well done! 👍';
+        document.getElementById('quizFeedback').classList.remove('hidden');
+
+        setTimeout(() => {
+            document.getElementById('quizFeedback').classList.add('hidden');
+            moveToNextQuestion();
+        }, 2000);
+    } else {
+        alert('Oops! Incorrect answer. Give it another shot!');
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuizIndex++;
+
+    if (currentQuizIndex < quizData.length) {
+        startQuiz(currentQuizIndex);
+    } else {
+        alert('Congratulations! You have completed the quiz.');
+        // You can add any additional logic here, such as showing the total score.
+    }
+}
+
+function deleteQuestion(index) {
+    quizData.splice(index, 1);
+    loadQuizList();
+}
+
+// Add this at the end of your app.js file
+const backgroundMusic = document.getElementById('backgroundMusic');
+const playButton = document.getElementById('playButton');
+const pauseButton = document.getElementById('pauseButton');
+
+function playBackgroundMusic() {
+    backgroundMusic.play();
+}
+
+function pauseBackgroundMusic() {
+    backgroundMusic.pause();
+}
+
+playButton.addEventListener('click', playBackgroundMusic);
+pauseButton.addEventListener('click', pauseBackgroundMusic);
+****************************************************************************************************************************************************
+TANKYOU.
