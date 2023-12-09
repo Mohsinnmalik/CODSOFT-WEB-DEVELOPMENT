@@ -1,0 +1,268 @@
+#THE GIVEN BELOW CODES ARE DESIGN FOR A LANDING PAGE  WHERE 2LAUNGAGES ARE USED (HTML AND CSS) 
+CODES IN HTML 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <title>GenWin</title>
+</head>
+
+<body>
+    <header>
+        <h1>GenWin</h1>
+        <p>Connect, Rate, Learn</p>
+        <div class="login-button">
+            <a href="#" class="cta-button" aria-label="Login to GenWin" onclick="toggleLoginForm()">Login</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="features">
+            <h2>Key Features</h2>
+            <div class="feature">
+                <h3>Anonymous Profiles</h3>
+                <p>Share, connect, and rate profiles without revealing your identity.</p>
+            </div>
+            <div class="feature">
+                <h3>Profile Ratings</h3>
+                <p>Rate your friends' profiles out of 10 and discover popular profiles.</p>
+            </div>
+            <div class="feature">
+                <h3>Study Hub</h3>
+                <p>Access notes and questions tailored to your preferences and courses.</p>
+            </div>
+        </section>
+
+        <section id="cta">
+            <h2>Join the Community</h2>
+            <p>Connect with your college peers. Rate profiles, share notes, and explore anonymously.</p>
+            <a href="#" class="cta-button animated pulse">Sign Up</a>
+        </section>
+    </main>
+
+    <footer>
+        <p class="watermark">Designed by MohsinMalikk</p>
+        &copy; 2023 GenWin. All rights reserved.
+    </footer>
+
+    <!-- Login Form -->
+    <div id="login-form" class="hidden">
+        <form action="process-login.php" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit" class="cta-button">Login</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleLoginForm() {
+            const loginForm = document.getElementById('login-form');
+            loginForm.classList.toggle('hidden');
+        }
+    </script>
+</body>
+
+</html>
+*******************************************************************************************************************************************************
+#CODES IN CSS 
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: linear-gradient(to bottom, #1a1a1a, #333);
+    color: #b0b0b0;
+}
+
+header {
+    position: relative;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    animation: fadeIn 1.5s ease-out;
+}
+
+.login-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.login-button a {
+    display: block;
+    background-color: transparent;
+    color: #fff;
+    padding: 10px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.login-button a:hover {
+    background-color: #fff;
+    color: #333;
+}
+
+main {
+    padding: 40px;
+    background-color: #333;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+#features {
+    text-align: center;
+    color: #fff;
+}
+
+.feature {
+    background-color: #444;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+}
+
+#cta {
+    text-align: center;
+    animation: slideInUp 1s ease-out;
+    color: #fff;
+}
+
+cta-button {
+    display: inline-block;
+    padding: 15px 30px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+cta-button:hover {
+    background-color: #45a049;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+}
+
+.watermark {
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Login Form Styles */
+#login-form {
+    text-align: center;
+    color: #fff;
+}
+
+form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+/* ... (previous styles) */
+
+/* Hidden class for login form */
+.hidden {
+    display: none;
+}
+
+/* Additional styles for the login form */
+#login-form {
+    text-align: center;
+    color: #fff;
+    margin-top: 20px;
+}
+
+form {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #4CAF50; /* Highlight label color */
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+********************************************************************************************************************************************************
+
+THANKYOU.
