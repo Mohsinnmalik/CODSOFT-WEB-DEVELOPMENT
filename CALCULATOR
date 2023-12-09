@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mohsin's Calculator</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    #calculator {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-gap: 8px;
+      max-width: 600px; /* Increased width */
+      margin: auto;
+      text-align: center;
+      background-color: #fff;
+      border: 4px solid #000;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    #calculator-title {
+      grid-column: span 6;
+      font-size: 24px;
+      padding: 10px 0;
+      text-align: center;
+      background-color: #333;
+      color: #fff;
+    }
+
+    #display {
+      grid-column: span 6;
+      height: 40px;
+      font-size: 18px;
+      text-align: right;
+      padding: 0 8px;
+      background-color: #333;
+      color: #fff;
+    }
+
+    .button-group {
+      grid-column: span 6;
+      display: flex;
+      justify-content: space-around;
+      margin: 8px 0;
+    }
+
+    button {
+      padding: 20px; /* Increased button size */
+      font-size: 18px; /* Increased font size */
+      cursor: pointer;
+      border: none;
+      outline: none;
+      background-color: #3498db;
+      color: #fff;
+      border-radius: 8px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    button.operator {
+      background-color: #2ecc71;
+    }
+
+    button.operator:hover {
+      background-color: #27ae60;
+    }
+
+    button.polynomial {
+      background-color: #e67e22;
+    }
+
+    button.polynomial:hover {
+      background-color: #d35400;
+    }
+
+    button.constants {
+      background-color: #9b59b6;
+    }
+
+    button.constants:hover {
+      background-color: #8e44ad;
+    }
+  </style>
+</head>
+<body>
+
+<div id="calculator">
+  <div id="calculator-title">Mohsin's Calculator</div>
+  <div id="display">0</div>
+
+  <!-- Number Buttons -->
+  <div class="button-group">
+    <button onclick="appendToDisplay('7')">7</button>
+    <button onclick="appendToDisplay('8')">8</button>
+    <button onclick="appendToDisplay('9')">9</button>
+    <button onclick="appendToDisplay('/')">/</button>
+  </div>
+
+  <div class="button-group">
+    <button onclick="appendToDisplay('4')">4</button>
+    <button onclick="appendToDisplay('5')">5</button>
+    <button onclick="appendToDisplay('6')">6</button>
+    <button onclick="appendToDisplay('*')" class="operator">*</button>
+  </div>
+
+  <div class="button-group">
+    <button onclick="appendToDisplay('1')">1</button>
+    <button onclick="appendToDisplay('2')">2</button>
+    <button onclick="appendToDisplay('3')">3</button>
+    <button onclick="appendToDisplay('-')" class="operator">-</button>
+  </div>
+
+  <div class="button-group">
+    <button onclick="appendToDisplay('0')">0</button>
+    <button onclick="appendToDisplay('.')">.</button>
+    <button onclick="calculate()" class="operator">=</button>
+    <button onclick="appendToDisplay('+')" class="operator">+</button>
+  </div>
+
+  <!-- Function Buttons -->
+  <div class="button-group">
+    <button onclick="calculateTrig('sin')">sin</button>
+    <button onclick="calculateTrig('cos')">cos</button>
+    <button onclick="calculateTrig('tan')">tan</button>
+    <button onclick="calculateExp('exp')">exp</button>
+  </div>
+
+  <!-- Constants and Special Functions -->
+  <div class="button-group">
+    <button onclick="appendToDisplay(Math.PI)" class="constants">π</button>
+    <button onclick="appendToDisplay(Math.E)" class="constants">e</button>
+    <button onclick="solvePolynomial()" class="polynomial">Poly</button>
+    <button onclick="calculateExp('sqrt')">sqrt</button>
+  </div>
+
+  <!-- Additional Buttons -->
+  <div class="button-group">
+    <button onclick="clearDisplay()">AC</button>
+    <button onclick="appendToDisplay('°')">°</button>
+    <button onclick="appendToDisplay('\'')">\'</button>
+  </div>
+
+</div>
+
+<script>
+  let display = document.getElementById('display');
+  let currentInput = '0';
+
+  function clearDisplay() {
+    currentInput = '0';
+    updateDisplay();
+  }
+
+  function appendToDisplay(value) {
+    if (currentInput === '0' && value !== '.') {
+      currentInput = value;
+    } else {
+      currentInput += value;
+    }
+    updateDisplay();
+  }
+
+  function calculate() {
+    try {
+      currentInput = eval(currentInput).toString();
+      updateDisplay();
+    } catch (error) {
+      currentInput = 'Error';
+      updateDisplay();
+    }
+  }
+
+  function calculateTrig(func) {
+    try {
+      const radianValue = eval(currentInput);
+      switch (func) {
+        case 'sin':
+          currentInput = Math.sin(radianValue).toString();
+          break;
+        case 'cos':
+          currentInput = Math.cos(radianValue).toString();
+          break;
+        case 'tan':
+          currentInput = Math.tan(radianValue).toString();
+          break;
+        default:
+          break;
+      }
+      updateDisplay();
+    } catch (error) {
+      currentInput = 'Error';
+      updateDisplay();
+    }
+  }
+
+  function calculateExp(func) {
+    try {
+      const inputValue = eval(currentInput);
+      switch (func) {
+        case 'exp':
+          currentInput = Math.exp(inputValue).toString();
+          break;
+        case 'sqrt':
+          currentInput = Math.sqrt(inputValue).toString();
+          break;
+        default:
+          break;
+      }
+      updateDisplay();
+    } catch (error) {
+      currentInput = 'Error';
+      updateDisplay();
+    }
+  }
+
+  function solvePolynomial() {
+    try {
+      // Basic polynomial solving up to the 4th degree
+      const coefficients = currentInput.match(/[+-]?\d+(\.\d+)?/g) || [];
+      const roots = [];
+
+      if (coefficients.length > 0 && coefficients.length <= 5) {
+        const degree = coefficients.length - 1;
+        const polynomial = new Array(degree + 1).fill(0).map((_, i) => parseFloat(coefficients[i]));
+
+        // Using a basic numerical solver for demonstration purposes
+        const solver = new PolynomialSolver(polynomial);
+        roots.push(...solver.findRoots());
+
+        currentInput = roots.map(root => root.toFixed(4)).join(', ');
+      } else {
+        currentInput = 'Error';
+      }
+
+      updateDisplay();
+    } catch (error) {
+      currentInput = 'Error';
+      updateDisplay();
+    }
+  }
+
+  function updateDisplay() {
+    display.textContent = currentInput;
+  }
+
+  // Basic numerical solver for polynomial equations
+  class PolynomialSolver {
+    constructor(coefficients) {
+      this.coefficients = coefficients;
+    }
+
+    evaluate(x) {
+      return this.coefficients.reduce((sum, coef, index) => sum + coef * Math.pow(x, index), 0);
+    }
+
+    findRoots() {
+      const roots = [];
+      const epsilon = 1e-10;
+
+      for (let i = -1000; i <= 1000; i++) {
+        const x0 = i;
+        const x1 = x0 - this.evaluate(x0) / this.derivative(x0);
+
+        while (Math.abs(x1 - x0) > epsilon) {
+          const temp = x1;
+          x1 = x1 - this.evaluate(x1) / this.derivative(x1);
+          x0 = temp;
+        }
+
+        if (!roots.includes(x1.toFixed(4))) {
+          roots.push(x1.toFixed(4));
+        }
+      }
+
+      return roots;
+    }
+
+    derivative(x) {
+      return this.coefficients.slice(1).reduce((sum, coef, index) => sum + (index + 1) * coef * Math.pow(x, index), 0);
+    }
+  }
+</script>
+
+</body>
+</html>
